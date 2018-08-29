@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+	href="../css/bootstrap.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	
+	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+		<div class="container" style="width:45%;">
+			<ul class="nav navbar-nav">
+				<th:block data-th-each="menu_item : ${main_menu}">
+					<li><a th:attr="data-page-id=${menu_item.page.id}"
+						class="menuItemLink"> <span data-th-utext="${menu_item.label}"></span>
+					</a></li>
+				</th:block>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container" style="width:45%;">
+		<h1 th:inline="text">My Custom CMS Dashboard</h1>
+
+		<button class="btn btn-primary block addNewPostButton"
+			th:attr="data-page-id=${session.page_id}"
+			th:unless="${session == null}">Add new Post</button>
+
+		<table class="table posts">
+			<tr th:each="post : ${posts}" class="post">
+				<td th:text="${post.title}" class="title"></td>
+				<td th:text="${post.text}" class="text"></td>
+				<td th:text="${post.user.username}" class="username"></td>
+				<td>
+					<button class="btn editPostButton"
+						th:attr="data-post-id=${post.id}">Edit Post</button>
+					<button class="btn deletePostButton"
+						th:attr="data-post-id=${post.id}">Delete Post</button>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>

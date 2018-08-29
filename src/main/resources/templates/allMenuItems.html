@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>My Menu Items</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+	href="../css/bootstrap.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="container sidebarPadding">
+	<h1 th:inline="text">My Menu Items</h1>
+	<br/><br/>
+		<table class="table table-striped table-bordered table-hover">
+			<tr>
+				<th class="center">Item ID</th>
+				<th class="center">Label</th>
+				<th class="center">Page Title</th>
+				<th class="center">Page ID</th>
+				<th></th>
+			</tr>
+			<tr th:each="item : ${items}">
+				<td th:text="${item.id}"></td>
+				<td th:text="${item.label}"></td>
+				<td th:text="${item.page.title}"></td>
+				<td th:text="${item.page.id}"></td>
+				<td><a class="btn editItemButton"
+					th:attr="data-item-id=${item.id}"> Edit Item </a> <a
+					class="btn deleteItemButton" th:attr="data-item-id=${item.id}">
+						Delete Item </a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Add New Post</title>
+		<link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css"/>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../css/bootstrap.css"/> 
+    </head>
+    <body>
+        <h1 th:inline="text">Add New Post</h1>
+
+         <form  method="post" th:object="${postViewModel}" class="postViewModel" th:action="@{/addNewPost}" action="#">
+         	
+            <table class="table">
+            	<tr>
+            		<td>Title:</td>
+            		<td>
+            			<input type="text" value="Title" th:field="*{title}" class="block textBox"/>
+            		</td>
+            	</tr>
+            	<tr>
+            		<td>Text:</td>
+            		<td><textarea th:field="*{text}" cols="40" rows="10"></textarea><br/><br/></td>
+            	</tr>
+            	<tr>
+            		<td>
+            			<input type="hidden" th:field="*{pageId}"/>
+            		</td>
+            		<td>
+            			<button type="submit" value="Add new post" class="btn btn-primary block"> Publish post </button>
+            		</td>
+            	</tr>
+            </table>
+            
+        </form>
+    </body>
+</html>

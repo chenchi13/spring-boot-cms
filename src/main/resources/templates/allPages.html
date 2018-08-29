@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>My Pages</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+	href="../css/bootstrap.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div class="container sidebarPadding">
+	<h1 th:inline="text">My Pages</h1>
+	<br/><br/>
+		<table class="table table-striped table-bordered table-hover">
+			<tr>
+				<th class="center">Page ID</th>
+				<th class="center">Title</th>
+				<th class="center">Subtitle</th>
+				<th></th>
+			</tr>
+			<tr th:each="page : ${pages}">
+				<td th:text="${page.id}"></td>
+				<td th:text="${page.title}"></td>
+				<td th:text="${page.subtitle}"></td>
+				<td><a class="btn editPageButton"
+					th:attr="data-page-id=${page.id}"> Edit Page </a> <a
+					class="btn deletePageButton" th:attr="data-page-id=${page.id}">
+						Delete Page </a></td>
+			</tr>
+		</table>
+	</div>
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>

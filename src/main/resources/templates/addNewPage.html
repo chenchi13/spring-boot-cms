@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Add New Page</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+	href="../css/bootstrap.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<h1 th:inline="text">Add New Page</h1>
+
+	<form method="post" th:object="${pageModel}" class="pageViewModel"
+		th:action="@{/addNewPage}" action="#">
+
+		<table class="table">
+			<tr>
+				<td>Title:</td>
+				<td><input type="text" value="Title" th:field="*{title}"
+					class="block textBox" /></td>
+			</tr>
+			<tr>
+				<td>Subtitle:</td>
+				<td><input type="text" value="Subtitle" th:field="*{subtitle}"
+					class="block textBox" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit" value="Save page"
+						class="btn btn-primary block">Save page</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>

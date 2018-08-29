@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Add New Submenu Item</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+	href="../css/bootstrap.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../css/style.css" />
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<h1 th:inline="text">Add New Submenu Item</h1>
+
+	<form method="post" th:object="${itemModel}" class="submenuItemViewModel"
+		th:action="@{/addNewSubItem}" action="#">
+
+		<table class="table">
+			<tr>
+				<td>Label:</td>
+				<td><input type="text" value="Label" th:field="*{label}"
+					class="block textBox" /></td>
+			</tr>
+			<tr>
+				<td>Main Menu:</td>
+				<td>
+					<div class="form-group blu-margin">
+						<select class="form-control" id="dropPages" th:field="*{mainMenuId}">
+							<option th:each="item : ${mainmenus}" th:value="${item.id}"
+								th:text="${item.label}"></option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>Page:</td>
+				<td>
+					<div class="form-group blu-margin">
+						<select class="form-control" id="dropPages" th:field="*{pageId}">
+							<option th:each="page : ${pages}" th:value="${page.id}"
+								th:text="${page.title}"></option>
+						</select>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<button type="submit" value="Save menu item"
+						class="btn btn-primary block">Save submenu item</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>

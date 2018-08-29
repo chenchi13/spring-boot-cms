@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.css}"
+		href="../css/bootstrap.css" />
+	<link rel="stylesheet" th:href="@{/css/style.css}"
+		href="../css/style.css" />
+	<link
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet">
+</head>
+<body>
+
+	<div class="nav-side-menu" th:fragment="sidebar">
+		<div class="brand">CMS Dashboard</div>
+		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+			data-target="#menu-content"></i>
+
+		<div class="menu-list">
+
+			<ul id="menu-content" class="menu-content collapse out">
+				<li><a href="#"> <i class="fa fa-dashboard fa-lg"></i>
+						Dashboard
+				</a></li>
+
+				<li data-toggle="collapse" data-target="#home"><a href="#"><i
+						class="fa fa-home fa-lg"></i> Home<span class="arrow"></span></a></li>
+				<ul class="sub-menu collapse" id="home">
+					<li><a href="/index">Go to web site</a></li>
+				</ul>
+
+				<li data-toggle="collapse" data-target="#pages"><a href="#"><i
+						class="fa fa-file fa-lg"></i> Pages <span class="arrow"></span></a></li>
+				<ul class="sub-menu collapse" id="pages">
+					<li><a href="/addNewPage">Add New Page</a></li>
+					<li><a href="/allPages">All Pages</a></li>
+				</ul>
+
+
+				<li data-toggle="collapse" data-target="#posts" class="collapsed">
+					<a href="#"><i class="fa fa-paperclip fa-lg"></i> Posts <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="posts">
+					<li><a href="/addNewPost">Add New Post</a></li>
+					<li><a href="/allPosts">All Posts</a></li>
+				</ul>
+
+
+				<li data-toggle="collapse" data-target="#menus" class="collapsed">
+					<a href="#"><i class="fa fa-bars fa-lg"></i> Menus <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="menus">
+					<li><a href="/addNewItem">Add New Menu Item</a></li>
+					<li><a href="/allMenuItems">All Menu Items</a></li>
+					<li><a href="/addNewSubItem">Add New Submenu Item</a></li>
+					<li><a href="/allSubmenuItems">All Submenu Items</a></li>
+				</ul>
+
+
+				<li><a href="#"> <i class="fa fa-user fa-lg"></i> Profile
+				</a></li>
+
+				<li><a href="#"> <i class="fa fa-users fa-lg"></i> Users
+				</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<script type="text/javascript"
+		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" th:src="@{/js/index.js}"></script>
+
+</body>
+</html>
