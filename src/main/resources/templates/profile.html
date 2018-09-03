@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-<title>Add New Page</title>
+<title>Dashboard</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.css}"
 	href="../css/bootstrap.css" />
 <link rel="stylesheet" th:href="@{/css/style.css}"
@@ -13,31 +13,24 @@
 	rel="stylesheet">
 </head>
 <body>
-	<h1 th:inline="text">Add New Page</h1>
 
-	<form method="post" th:object="${pageModel}" class="pageViewModel"
-		th:action="@{/addNewPage}" action="#">
+	<div class="container" style="width:45%;">
+		<h1 th:inline="text">My profile</h1>
 
 		<table class="table">
 			<tr>
-				<td>Title:</td>
-				<td><input type="text" value="Title" th:field="*{title}"
-					class="block form-control" /></td>
+				<th>Username</th>
+				<th>Password</th>
+				<th>Is Admin</th>
 			</tr>
-			<tr>
-				<td>Subtitle:</td>
-				<td><input type="text" value="Subtitle" th:field="*{subtitle}"
-					class="block form-control" /></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-					<button type="submit" value="Save page"
-						class="btn btn-primary block">Save page</button>
-				</td>
+			<tr th:object="${userViewModel}" class="userViewModel">
+				<td th:text="*{username}" class="text"></td>
+				<td th:text="*{password}" class="text"></td>
+				<td th:text="*{admin}" class="username"></td>
 			</tr>
 		</table>
-	</form>
+
+	</div>
 
 	<div th:replace="fragments/sidebar :: sidebar"></div>
 

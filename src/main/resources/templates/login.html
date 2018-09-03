@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
   <head>
     <title>My Custom CMS - Powered By Spring Framework</title>
     <meta charset="UTF-8"></meta>
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css"></link>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../css/bootstrap.css"></link> 
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../css/bootstrap.css"/> 
+	<link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css"/>	
   </head>
 	<body onload='document.f.username.focus();'>
 		<h1>Prijava korisnika</h1>
@@ -16,18 +17,18 @@
 		    		<tr>
 		    			<td>Korisničko ime:</td>
 		    			<td>
-		        			<input type='text' name='username' value='' ></input>
+		        			<input type='text' name='username' class="form-control"></input>
 		        		</td>
 		        	</tr>
 		    		<tr>
-		    			<td>Lozinka:</td>
+		    			<td style="text-align:right;">Lozinka:</td>
 		        		<td>
-		        			<input type='password' name='password'></input>
+		        			<input type='password' name='password' class="form-control"></input>
 		        		</td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan='2'>
-		        			<input name="submit" type="submit" value="Prijava" class="btn btn-primary" ></input>
+		    			<td colspan='2' style="padding-top:15px;">
+		        			<input name="submit" type="submit" value="Prijava" class="btn btn-primary" style="display:block;float:right;" ></input>
 		        		</td>
 		        	</tr>
 	   			</table>

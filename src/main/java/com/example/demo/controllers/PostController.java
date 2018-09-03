@@ -3,6 +3,8 @@ package com.example.demo.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.model.CustomUserDetails;
 import com.example.demo.model.Page;
 import com.example.demo.model.Post;
+import com.example.demo.model.User;
 import com.example.demo.repository.PageRepository;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.repository.UserRepository;
@@ -52,7 +56,7 @@ public class PostController {
 
 	@PostMapping("/addNewPost")
 	public String saveNewPost(@ModelAttribute PostViewModel post, Model model) {
-		postRepository.save(new Post(post.getTitle(), post.getText(), userRepository.findByUsername("solujic"), getPageById(post.getPageId())));
+		postRepository.save(new Post(post.getTitle(), post.getText(), getLogedinUser(), getPageById(post.getPageId())));
 
 		return "redirect:/index/" + post.getPageId();
 	}
@@ -102,5 +106,21 @@ public class PostController {
 			page = pageOptional.get();
 		}
 		return page;
+	}
+	
+	private User getLogedinUser()
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		CustomUserDetails customUser = (CustomUserDetails)authentication.getPrincipal();
+		Long userId = customUser.getId();
+
+		User user = null;
+		Optional<User> userOptional = userRepository.findById(userId);
+
+		if(userOptional.isPresent())
+		{
+			user = userOptional.get();
+		}
+		return user;
 	}
 }

@@ -29,25 +29,40 @@
 					</li>
 				</th:block>
 			</ul>
+			<div sec:authorize="isAuthenticated()">
+				<div class="userDiv">
+					Welcome: <span sec:authentication="name" th:text="${#request.userPrincipal.principal.username}"></span>,
+					<span><a href="#" th:href="@{/logout}">log out?</a></span>
+				</div>
+			</div>
+			<div sec:authorize="isAnonymous()">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#" th:href="@{/login}">Log in</a></li>
+					</ul>
+				</div>
 			</div>
     	</nav>
 
 		<div class="container">
     		<h1 th:text="${page.title}"></h1>
         	<h2 th:text="${page.subtitle}"></h2>
-        	
-        	<button class="btn btn-primary block addNewPostButton" th:attr="data-page-id=${session.page_id}" th:unless="${session == null}"> Add new Post </button>
+
+		<div sec:authorize="isAuthenticated()">
+			<button class="btn btn-primary block addNewPostButton" th:attr="data-page-id=${session.page_id}" th:unless="${session == null}"> Add new Post </button>
+		</div>
         	
         	<table class="table posts">
         		<tr th:each="post : ${posts}" class="post">
         			<td th:text="${post.title}" class="title"></td>
         			<td th:text="${post.text}" class="text"></td>
         			<td th:text="${post.user.username}" class="username"></td>
-        			<td>
-        				<button class="btn editPostButton" th:attr="data-post-id=${post.id}"> Edit Post </button>
-        				<button class="btn deletePostButton" th:attr="data-post-id=${post.id}"> Delete Post </button>
-        			</td>
-        		</tr>
+				<td>
+					<div sec:authorize="hasAuthority('ROLE_ADMIN')">
+						<button class="btn editPostButton" th:attr="data-post-id=${post.id}">Edit Post</button>
+						<button class="btn deletePostButton" th:attr="data-post-id=${post.id}">Delete Post</button>
+					</div>
+				</td>
+			</tr>
         	</table>
         	
     	</div>

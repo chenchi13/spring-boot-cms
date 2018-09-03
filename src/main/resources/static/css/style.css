@@ -16,6 +16,13 @@ form {
 	display:block!important;
 }
 
+.userDiv
+{
+	display: block;
+    float: right;
+    padding-top: 15px;
+}
+
 .menuItemLink{
 	font-size: xxx-large!important;
 }
@@ -33,6 +40,11 @@ form {
 .deletePostButton
 {
 	display:inline-block!important;
+}
+
+.inputField
+{
+	min-width: 250px;
 }
 
 .alignLeft
@@ -89,6 +101,8 @@ table{
 
 body td{
 	padding: 2px 2px 2px 2px;
+	vertical-align: text-bottom!important;
+	text-align: right;
 }
 
 .successText{

@@ -5,6 +5,7 @@
         <title>Edit Page</title>
 		<link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css"/>
 		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../css/bootstrap.css"/> 
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>       
          <form  method="post" th:object="${pageViewModel}" class="pageViewModel" th:action="@{/editPage}" action="#">
@@ -16,12 +17,12 @@
             	<tr>
             		<td>Title:</td>
             		<td>
-            			<input type="text" value="Title" th:field="*{title}" class="block textBox"/>
+            			<input type="text" value="Title" th:field="*{title}" class="block form-control inputField"/>
             		</td>
             	</tr>
             	<tr>
             		<td>Subtitle:</td>
-            		<td><input type="text" value="Title" th:field="*{subtitle}" class="block textBox"/></td>
+            		<td><input type="text" value="Title" th:field="*{subtitle}" class="block form-control inputField"/></td>
             	</tr>
             	<tr>
             		<td><input th:field="*{id}" type="hidden"></input></td>
