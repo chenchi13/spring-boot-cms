@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Component;
 
+import com.example.demo.log.*;
+import com.example.demo.log.LoggerFactory.LoggerType;
 import com.example.demo.model.MainMenu;
 import com.example.demo.model.Page;
 import com.example.demo.model.Post;
@@ -21,6 +23,9 @@ import com.example.demo.repository.UserRepository;
 @Component
 public class DataLoader {
 
+	private final Logger logger = 
+	           LoggerFactory.getLogger(LoggerType.FILE);
+	
 	private UserRepository userRepository;
 	private PageRepository pageRepository;
 	private PostRepository postRepository;
@@ -46,8 +51,12 @@ public class DataLoader {
         this.subMenuRepository = subMenuRepo;
         
         loadData();
+        
+        logger.log("Data loaded");        
     }
 
+    
+    
     public void loadData() {
     	loadUsers();
         loadPages();
@@ -57,9 +66,23 @@ public class DataLoader {
     }
     
     public void loadUsers() {
+    	logger.log("start load users"); 
         userRepository.save(new User("solujic", "1", true, Arrays.asList(new Role("USER"), new Role("ADMIN"))));
         userRepository.save(new User("admin", "1", true, Arrays.asList(new Role("USER"), new Role("ADMIN"))));
         userRepository.save(new User("korisnik", "1", false, Arrays.asList(new Role("USER"))));
+        
+        /**
+        logger.log("start load users user builder:"); 
+        User user = new UserBuilder()
+        		.setUsername("user1")
+        		.setPassword("password1")
+        		.setAdmin(false)
+        		.setRoles(Arrays.asList(new Role("USER")))
+        		.build();**/
+        
+        //userRepository.save(user);
+        
+        
     }
     
 	private void loadPages() {

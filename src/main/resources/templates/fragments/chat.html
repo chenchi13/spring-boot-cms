@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	th:fragment="chat">
+
+<head>
+<title>Chat WebSocket</title>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+<script type="text/javascript">
+            var stompClient = null;
+             
+            function setConnected(connected) {
+                document.getElementById('connect').disabled = connected;
+                document.getElementById('disconnect').disabled = !connected;
+                document.getElementById('conversationDiv').style.visibility 
+                  = connected ? 'visible' : 'hidden';
+                document.getElementById('response').innerHTML = '';
+            }
+             
+            function connect() {
+                var socket = new SockJS('/chat');
+                stompClient = Stomp.over(socket);  
+                stompClient.connect({}, function(frame) {
+                    setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/messages', function(messageOutput) {
+                        showMessageOutput(JSON.parse(messageOutput.body));
+                    });
+                });
+            }
+             
+            function disconnect() {
+                if(stompClient != null) {
+                    stompClient.disconnect();
+                }
+                setConnected(false);
+                console.log("Disconnected");
+            }
+             
+            function sendMessage() {
+                var from = document.getElementById('from').value;
+                var text = document.getElementById('text').value;
+                stompClient.send("/app/chat", {}, 
+                  JSON.stringify({'from':from, 'text':text}));
+            }
+             
+            function showMessageOutput(messageOutput) {
+                var response = document.getElementById('response');
+                var p = document.createElement('p');
+                p.style.wordWrap = 'break-word';
+                p.appendChild(document.createTextNode(messageOutput.from + ": " 
+                  + messageOutput.text + " (" + messageOutput.time + ")"));
+                response.appendChild(p);
+            }      
+            
+            $( document ).ready(function() {
+            	$("#min-button").click(function(){
+                    $("#chat-window").slideToggle("slow");
+                    $("#open-chat-button").css('visibility', 'visible');
+                });
+            	
+            	$("#open-chat-button").click(function(){
+            		$(this).css('visibility', 'hidden');
+                    $("#chat-window").slideToggle("slow");
+                });
+            });
+            
+            
+</script>
+</head>
+<body onload="disconnect()">
+
+	<div id="chat-header">
+			<button type="button" id="open-chat-button" class="btn btn-info" style="visibility:hidden;margin-right:20px;display:block;float:right">chat +</button>
+	</div>
+	<div class="chat" id="chat-window">
+		<div id="chat-header">
+			<button type="button" id="min-button" class="btn btn-info min-btn">-</button>
+		</div>
+		<div id="chat">
+			<h1>Chat</h1>
+			<div>
+				<input type="text" id="from" placeholder="Choose a nickname"
+					class="form-control chat-input input-sm" style="width: 133px;" />
+				<button id="connect" onclick="connect();" class="btn btn-xs">Connect</button>
+				<button id="disconnect" disabled="disabled" onclick="disconnect();"
+					class="btn btn-xs">Disconnect</button>
+			</div>
+			<div></div>
+			<br />
+			<div id="conversationDiv">
+				<input type="text" id="text" placeholder="Write a message..."
+					class="form-control chat-input" />
+				<button id="sendMessage" onclick="sendMessage();" class="btn">Send</button>
+				<br /> <br />
+				<div style="overflow-y: scroll; height:100px; width: auto;" >
+					<p id="response"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

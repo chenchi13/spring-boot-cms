@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.log.Logger;
+import com.example.demo.log.LoggerFactory;
+import com.example.demo.log.LoggerFactory.LoggerType;
 import com.example.demo.model.MainMenu;
 import com.example.demo.model.Page;
 import com.example.demo.repository.*;
@@ -28,10 +31,13 @@ public class HomeController {
 	@Autowired
 	private SubMenuRepository subMenuRepository;
 	
+	private final Logger logger = 
+	           LoggerFactory.getLogger(LoggerType.FILE);
+	
 	@RequestMapping("/")
 	  public String stdRedirect(){
 	    return "redirect:/index/9";
-	  }
+	}
 	
 	@GetMapping("/dashboard")
 	public String dashboard(Model model) {
@@ -74,8 +80,9 @@ public class HomeController {
 		model.addAttribute("page", page);
 		session.setAttribute("page_id", pageId);
 		
+		logger.log("Home Page data filled");
+		
 		return "index";
 	}
-	
 	
 }

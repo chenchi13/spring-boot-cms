@@ -41,6 +41,13 @@ public class User implements Serializable {
 		this.roles = roles;
 	}
 	
+	public User(UserBuilder userBuilder) {
+		this.username = userBuilder.username;
+		this.password = userBuilder.password;
+		this.admin = userBuilder.admin;
+		this.roles = userBuilder.roles;
+	}
+	
 	public User(User user) {
 		this.id = user.id;
 		this.username = user.username;
@@ -81,5 +88,38 @@ public class User implements Serializable {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public static class UserBuilder {
+
+		private String username;
+		private String password;
+		private Boolean admin;
+		private List<Role> roles;
+
+	    public UserBuilder setUsername(String username) {
+	      this.username = username;
+	      return this;
+	    }
+
+	    public UserBuilder setPassword(String password) {
+	      this.password = password;
+	      return this;
+	    }
+
+	    public UserBuilder setAdmin(boolean admin) {
+	      this.admin = admin;
+	      return this;
+	    }
+	    
+	    public UserBuilder setRoles(List<Role> roles) {
+		      this.roles = roles;
+		      return this;
+		    }
+
+	    public User build() {
+	      return new User(this);
+	    }
+
+	  }
 	
 }
